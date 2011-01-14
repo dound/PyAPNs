@@ -1,6 +1,8 @@
 from datetime import datetime
-from socket import socket, AF_INET, SOCK_STREAM, ssl
+from socket import socket, AF_INET, SOCK_STREAM
 from struct import pack, unpack
+
+import ssl
 
 try:
     import simplejson as json
@@ -119,7 +121,7 @@ class APNsConnection(object):
         # Establish an SSL connection
         self._socket = socket(AF_INET, SOCK_STREAM)
         self._socket.connect((self.server, self.port))
-        self._ssl = ssl(self._socket, self.key_file, self.cert_file)
+        self._ssl = ssl.wrap_socket(self._socket, certfile = self.key_file, ca_certs = self.cert_file, cert_reqs = ssl.CERT_REQUIRED)
     
     def _disconnect(self):
         if self._socket:
