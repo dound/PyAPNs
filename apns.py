@@ -2,7 +2,10 @@ from datetime import datetime
 from socket import socket, AF_INET, SOCK_STREAM, ssl
 from struct import pack, unpack
 
-import simplejson
+try:
+    import simplejson as json
+except ImportError:
+    import json
 
 MAX_PAYLOAD_LENGTH = 256
 
@@ -190,7 +193,7 @@ class Payload(object):
         return d
     
     def json(self):
-        return simplejson.dumps(self.dict(), separators=(',',':'))
+        return json.dumps(self.dict(), separators=(',',':'))
     
     def _check_size(self):
         if len(self.json()) > MAX_PAYLOAD_LENGTH:
