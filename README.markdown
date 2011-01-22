@@ -30,6 +30,10 @@ class. Example:
     alert = PayloadAlert("Hello world!", action_loc_key="Click me")
     payload = Payload(alert=alert, sound="default")
 
+To include custom parameters, just pass extra keywords to Payload like this:
+
+    payload = Payload(x=5, y='hello world')
+
 ## Further Info
 
 [iOS Reference Library: Local and Push Notification Programming Guide][a1]
